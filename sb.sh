@@ -27,8 +27,16 @@
 # maybe a common use of vi/ex. But I enjoy it, and want to share with
 # everyone my enjoyment.
 
+view_mode=NO
+
+# if sbv instead of sb
+test $(basename $0) = sbv  && view_mode=YES
+
 # Ignorecase and autowrite 
-base="ic aw"
+base="redraw ic aw"
+
+# Readonly
+readonly="readonly"
 
 # Two kinds of programming 
 struct_prog="ai"
@@ -37,6 +45,9 @@ lisp_prog="ai lisp" 	# This option has not been implemented yet
 			# Maybe I can do that?
 
 # Macros for input mode 
+
+escape_with_refresh='map!  ' 	# This macro is useful when redraw
+					# option does not effect.
 
 new_block_brace='map!  {}O	'
 new_block_begin_end='map!  beginendO	'
@@ -48,7 +59,10 @@ comment_dq_to_sharp='map!  :?^"$?+1,.-1s/^/# /:\?d:\/d'
 # Macros for commond mode
 
 exit_with_save='map q :wq'
+exit_without_save='map q :q!'
 compile='map #5 :!make'
+
+repeat_with_refresh='map . .'
 
 # Abbreviations
 my_name='ab mzz Maeda Chu'
@@ -159,8 +173,24 @@ $struct_prog\
 # Initialization
 
 settings="$base"
-macros="$exit_with_save"
+macros="$escape_with_refresh\
+|$repeat_with_refresh\
+"
 abbres="$my_name"
+
+# If view instead of edit
+if [ $(basename $0) = sbv ]; then
+	settings="$settings \
+$readonly\
+"
+	macros="$macros\
+|$exit_without_save\
+"
+else
+	macros="$macros\
+|$exit_with_save\
+"
+fi
 
 # Analyze filename 
 
@@ -185,7 +215,7 @@ esac
 # Analyze the first line of the file
 
 first_line=
-[ -e $1 ] && first_line=$(head -n 1 $1)
+test -e $1  && first_line=$(head -n 1 $1)
 
 case "$first_line" in
 \#\!/*bin/*sh* )
