@@ -47,7 +47,7 @@ lisp_prog="ai lisp" 	# This option has not been implemented yet
 # Macros for input mode 
 
 escape_with_refresh='map!  ' 	# This macro is useful when redraw
-					# option does not effect.
+					# option does not take effect.
 
 new_block_brace='map!  {}O	'
 new_block_begin_end='map!  beginendO	'
