@@ -27,11 +27,6 @@
 # maybe a common use of vi/ex. But I enjoy it, and want to share with
 # everyone my enjoyment.
 
-view_mode=NO
-
-# if sbv instead of sb
-test $(basename $0) = sbv  && view_mode=YES
-
 # Ignorecase and autowrite 
 base="redraw ic aw"
 
