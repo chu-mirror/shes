@@ -15,7 +15,7 @@ clean:
 	rm -f $(ALL)
 
 uninstall:
-	cd $(BINDIR) && rm $(ALL)
+	cd $(BINDIR) && rm -f $(ALL)
 
 sbv: sb
 	ln -s sb sbv
