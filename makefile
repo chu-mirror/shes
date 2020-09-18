@@ -2,7 +2,7 @@
 PREFIX = /usr/local
 BINDIR = $(PREFIX)/bin
 
-ALL = sb sbv
+ALL = sb sbv ssb
 
 .POSIX:
 
@@ -10,6 +10,9 @@ all: $(ALL)
 
 install: all
 	cp -P -t $(BINDIR) $(ALL)
+
+install-sb: sb
+	cp sb $(BINDIR)
 
 clean:
 	rm -f $(ALL)

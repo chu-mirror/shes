@@ -27,6 +27,8 @@
 # maybe a common use of vi/ex. But I enjoy it, and want to share with
 # everyone my enjoyment.
 
+# Settings
+
 # Ignorecase and autowrite 
 base="redraw ic aw"
 
@@ -41,7 +43,7 @@ lisp_prog="ai lisp" 	# This option has not been implemented yet
 
 # Macros for input mode 
 
-escape_with_refresh='map!  ' 	# This macro is useful when redraw
+escape_with_refresh='map!  '	# This macro is useful when redraw
 					# option does not take effect.
 
 new_block_brace='map!  {}O	'
@@ -218,6 +220,8 @@ case "$first_line" in
 	;;
 esac
 
+# Start
+
 debug=NO
 #debug=YES
 if [ $debug = 'YES' ]; then
@@ -226,6 +230,6 @@ if [ $debug = 'YES' ]; then
 	echo $abbres | tr '|' '\n' >> ~/.exrc
 	vi "$@"
 else
-	env EXINIT="se $settings|$macros|$abbres" vi "$@"
+	env EXINIT="se $settings|$macros|$abbres|$EXINIT" vi "$@"
 fi
 
