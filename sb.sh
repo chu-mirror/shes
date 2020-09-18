@@ -58,6 +58,7 @@ comment_dq_to_sharp='map!  :?^"$?+1,.-1s/^/# /:\?d:\/d'
 exit_with_save='map q :wq'
 exit_without_save='map q :q!'
 compile='map #5 :!make'
+compile_markdown='map #5 :!markdown % > %.html'
 
 repeat_with_refresh='map . .'
 
@@ -68,6 +69,24 @@ include_stdio='ab iio #include <stdio.h>'
 
 
 # Modes
+
+markdown_mode=NO
+use_markdown_mode() {
+	if [ $markdown_mode = YES ]; then
+		return 0
+	fi
+	markdown_mode=YES
+
+	settings="$settings \
+"
+
+	macros="$macros\
+|compile_markdown\
+"
+
+	abbres="$abbres\
+"
+}
 
 shell_mode=NO
 use_shell_mode() {

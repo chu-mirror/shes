@@ -6,10 +6,12 @@ please specify it."
 	exit 1
 fi
 
-next_paragraph='map  /^# [smai][eabnt][tcbia]'
+next_paragraph='map  /^# [SMAI][eabnto][dtcbia]'
 
-macros="$next_paragraph"
+macros="$next_paragraph\
+"
 
 cd $SHES_SOURCE_PATH
 env EXINIT="$macros" sb sb.sh
 sudo make install-sb
+
