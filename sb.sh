@@ -30,7 +30,7 @@
 # Settings
 
 # Ignorecase and autowrite 
-base="redraw ic aw"
+base='redraw ic aw exrc'
 
 # Readonly
 readonly="readonly"
@@ -249,10 +249,6 @@ case "$first_line" in
 	use_shell_mode
 	;;
 esac
-
-# Load the local primitives if exist
-
-test -f .primitives && . ./.primitives
 
 # Start
 
