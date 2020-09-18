@@ -6,7 +6,7 @@ please specify it."
 	exit 1
 fi
 
-next_paragraph='map  /^# [SMAI][eabnto][dtcbia]'
+next_paragraph='map  /^# [SMAIL][eabnto][dtcbia]'
 
 macros="$next_paragraph\
 "

@@ -36,10 +36,13 @@ base="redraw ic aw"
 readonly="readonly"
 
 # Two kinds of programming 
-struct_prog="ai"
-lisp_prog="ai lisp" 	# This option has not been implemented yet
+struct_prog='ai'
+lisp_prog='ai lisp' 	# This option has not been implemented yet
 			# in nvi.
 			# Maybe I can do that?
+
+# Plain text writing
+struct_text='ai'
 
 # Macros for input mode 
 
@@ -52,6 +55,9 @@ new_block_begin_end='map!  beginendO	'
 comment_brace='map!  {}i'
 comment_dq_to_sharp='map!  :?^"$?+1,.-1s/^/# /:\?d:\/d' 
 	#dq: doublequote
+
+dq_to_bq='map!  :?^"$?+1,.-1s/^/\> /:\?d:\/d'
+	#dq: doublequote bq: blockquote(used by markdown)
 
 # Macros for commond mode
 
@@ -78,10 +84,12 @@ use_markdown_mode() {
 	markdown_mode=YES
 
 	settings="$settings \
+$struct_text \
 "
 
 	macros="$macros\
-|compile_markdown\
+|$compile_markdown\
+|$dq_to_bq\
 "
 
 	abbres="$abbres\
@@ -226,6 +234,9 @@ case $1 in
 *.lisp ) 
 	use_lisp_mode
 	;;
+*.md )
+	use_markdown_mode
+	;;
 esac
 
 # Analyze the first line of the file
@@ -238,6 +249,10 @@ case "$first_line" in
 	use_shell_mode
 	;;
 esac
+
+# Load the local primitives if exist
+
+test -f primitives && . primitives
 
 # Start
 
