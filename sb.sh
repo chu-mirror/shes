@@ -252,7 +252,7 @@ esac
 
 # Load the local primitives if exist
 
-test -f primitives && . ./primitives
+test -f .primitives && . ./.primitives
 
 # Start
 
