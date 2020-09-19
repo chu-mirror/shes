@@ -76,6 +76,23 @@ include_stdio='ab iio #include <stdio.h>'
 
 # Modes
 
+manpage_mode=NO
+use_manpage_mode() {
+	if [ $manpage_mode = YES ]; then
+		return 0
+	fi
+	manpage_mode=YES
+
+	settings="$settings \
+"
+
+	macros="$macros\
+"
+
+	abbres="$abbres\
+"
+}
+
 markdown_mode=NO
 use_markdown_mode() {
 	if [ $markdown_mode = YES ]; then
@@ -236,6 +253,9 @@ case $1 in
 	;;
 *.md )
 	use_markdown_mode
+	;;
+*.[1-9] )
+	use_manpage_mode
 	;;
 esac
 
