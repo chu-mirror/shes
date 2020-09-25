@@ -9,6 +9,7 @@ ALL = sb sbv ssb
 all: $(ALL)
 
 install: all
+	chmod +x $(ALL)
 	cp -P $(ALL) $(BINDIR)
 
 install-sb: sb
