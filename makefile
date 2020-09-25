@@ -9,7 +9,7 @@ ALL = sb sbv ssb
 all: $(ALL)
 
 install: all
-	cp -P -t $(BINDIR) $(ALL)
+	cp -P $(ALL) $(BINDIR)
 
 install-sb: sb
 	cp sb $(BINDIR)
