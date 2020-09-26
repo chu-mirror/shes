@@ -76,6 +76,26 @@ include_stdio='ab iio #include <stdio.h>'
 
 # Modes
 
+asm_mode=NO
+use_asm_mode() {
+	if [ $asm_mode = YES ]; then
+		return 0
+	fi
+	asm_mode=YES
+
+	settings="$settings \
+$struct_prog \
+"
+
+	macros="$macros\
+|$comment_dq_to_sharp\
+|$new_block_brace\
+"
+
+	abbres="$abbres\
+"
+}
+
 manpage_mode=NO
 use_manpage_mode() {
 	if [ $manpage_mode = YES ]; then
@@ -256,6 +276,9 @@ case $1 in
 	;;
 *.[1-9] )
 	use_manpage_mode
+	;;
+*.asm )
+	use_asm_mode
 	;;
 esac
 
