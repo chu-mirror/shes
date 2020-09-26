@@ -5,11 +5,17 @@ BINDIR = $(PREFIX)/bin
 ALL = sb sbv ssb
 
 .POSIX:
+.SUFFIXES:
+
+.SUFFIXES: .sh
+
+.sh:
+	cp $< $@
+	chmod +x $@
 
 all: $(ALL)
 
 install: all
-	chmod +x $(ALL)
 	cp -P $(ALL) $(BINDIR)
 
 install-sb: sb
