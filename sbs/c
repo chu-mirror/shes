@@ -1,0 +1,20 @@
+c_mode=NO
+use_c_mode() {
+	if [ $c_mode = YES ]; then
+		return 0
+	fi
+	c_mode=YES
+
+	settings="$settings \
+$struct_prog\
+"
+
+	macros="$macros\
+|$new_block_brace\
+"
+
+	abbres="$abbres\
+|$include_stdio\
+|$include_linux\
+"
+}

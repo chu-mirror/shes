@@ -1,0 +1,17 @@
+lisp_mode=NO
+use_lisp_mode() {
+	if [ $lisp_mode = YES ]; then
+		return 0
+	fi
+	lisp_mode=YES
+
+	settings="$settings \
+$lisp_prog\
+"
+
+	macros="$macros\
+"
+	
+	abbres="$abbres\
+"
+}

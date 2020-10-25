@@ -1,0 +1,17 @@
+make_mode=NO
+use_make_mode() {
+	if [ $make_mode = YES ]; then
+		return 0
+	fi
+	make_mode=YES
+
+	settings="$settings \
+$struct_prog\
+"
+
+	macros="$macros\
+|$new_block_brace\
+"
+	ajbbres="$abbres\
+"
+}

@@ -1,0 +1,23 @@
+
+compile_markdown='map #5 :!markdown % > %.html'
+
+markdown_mode=NO
+use_markdown_mode() {
+	if [ $markdown_mode = YES ]; then
+		return 0
+	fi
+	markdown_mode=YES
+
+	settings="$settings \
+$struct_text \
+"
+
+	macros="$macros\
+|$compile_markdown\
+|$dq_to_bq\
+"
+
+	abbres="$abbres\
+"
+}
+

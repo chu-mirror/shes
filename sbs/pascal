@@ -1,0 +1,20 @@
+pascal_mode=NO
+use_pascal_mode() {
+	if [ $pascal_mode = YES ]; then
+		return 0
+	fi
+	pascal_mode=YES
+
+	settings="$settings \
+$struct_prog\
+"
+
+	macros="$macros\
+|$comment_brace\
+|$new_block_begin_end\
+|$compile\
+"
+	
+	abbres="$abbres\
+"
+}

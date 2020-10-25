@@ -27,216 +27,24 @@
 # maybe a common use of vi/ex. But I enjoy it, and want to share with
 # everyone my enjoyment.
 
-# Settings
+# search SHES_SOURCE_PATH for configuration files
 
-# Ignorecase and autowrite 
-base='redraw ic aw exrc'
+if [ -z $SHES_SOURCE_PATH -o ! -d $SHES_SOURCE_PATH ]; then
+	echo "The SHES_SOURCE_PATH is either not specified or not meaning a \
+directory"
+	exit 1
+fi
 
-# Readonly
-readonly="readonly"
+sbs=$SHES_SOURCE_PATH/sbs
 
-# Two kinds of programming 
-struct_prog='ai'
-lisp_prog='ai lisp' 	# This option has not been implemented yet
-			# in nvi.
-			# Maybe I can do that?
+[ ! -d $sbs ] && echo "No directory $sbs" && exit 1
 
-# Plain text writing
-struct_text='ai'
-
-# Macros for input mode 
-
-escape_with_refresh='map!  '	# This macro is useful when redraw
-					# option does not take effect.
-
-new_block_brace='map!  {}O	'
-new_block_begin_end='map!  beginendO	'
-
-comment_brace='map!  {}i'
-comment_dq_to_sharp='map!  :?^"$?+1,.-1s/^/# /:\?d:\/d' 
-	#dq: doublequote
-
-dq_to_bq='map!  :?^"$?+1,.-1s/^/\> /:\?d:\/d'
-	#dq: doublequote bq: blockquote(used by markdown)
-
-# Macros for commond mode
-
-exit_with_save='map q :wq'
-exit_without_save='map q :q!'
-compile='map #5 :!make'
-compile_markdown='map #5 :!markdown % > %.html'
-
-repeat_with_refresh='map . .'
-
-# Abbreviations
-my_name='ab mzz Maeda Chu'
-use_posix_shell='ab ush #!/bin/sh'
-include_stdio='ab iio #include <stdio.h>'
-
-
-# Modes
-
-asm_mode=NO
-use_asm_mode() {
-	if [ $asm_mode = YES ]; then
-		return 0
-	fi
-	asm_mode=YES
-
-	settings="$settings \
-$struct_prog \
-"
-
-	macros="$macros\
-|$comment_dq_to_sharp\
-|$new_block_brace\
-"
-
-	abbres="$abbres\
-"
-}
-
-manpage_mode=NO
-use_manpage_mode() {
-	if [ $manpage_mode = YES ]; then
-		return 0
-	fi
-	manpage_mode=YES
-
-	settings="$settings \
-"
-
-	macros="$macros\
-"
-
-	abbres="$abbres\
-"
-}
-
-markdown_mode=NO
-use_markdown_mode() {
-	if [ $markdown_mode = YES ]; then
-		return 0
-	fi
-	markdown_mode=YES
-
-	settings="$settings \
-$struct_text \
-"
-
-	macros="$macros\
-|$compile_markdown\
-|$dq_to_bq\
-"
-
-	abbres="$abbres\
-"
-}
-
-shell_mode=NO
-use_shell_mode() {
-	if [ $shell_mode = YES ]; then
-		return 0
-	fi
-	shell_mode=YES
-
-	settings="$settings \
-$struct_prog\
-"
-
-	macros="$macros\
-|$new_block_brace\
-|$comment_dq_to_sharp\
-"
-
-	abbres="$abbres\
-|$use_posix_shell\
-"
-}
-
-make_mode=NO
-use_make_mode() {
-	if [ $make_mode = YES ]; then
-		return 0
-	fi
-	make_mode=YES
-
-	settings="$settings \
-$struct_prog\
-"
-
-	macros="$macros\
-|$new_block_brace\
-"
-	ajbbres="$abbres\
-"
-}
-
-c_mode=NO
-use_c_mode() {
-	if [ $c_mode = YES ]; then
-		return 0
-	fi
-	c_mode=YES
-
-	settings="$settings \
-$struct_prog\
-"
-
-	macros="$macros\
-|$new_block_brace\
-"
-
-	abbres="$abbres\
-|$include_stdio\
-"
-}
-
-lisp_mode=NO
-use_lisp_mode() {
-	if [ $lisp_mode = YES ]; then
-		return 0
-	fi
-	lisp_mode=YES
-
-	settings="$settings \
-$lisp_prog\
-"
-
-	macros="$macros\
-"
-	
-	abbres="$abbres\
-"
-}
-
-pascal_mode=NO
-use_pascal_mode() {
-	if [ $pascal_mode = YES ]; then
-		return 0
-	fi
-	pascal_mode=YES
-
-	settings="$settings \
-$struct_prog\
-"
-
-	macros="$macros\
-|$comment_brace\
-|$new_block_begin_end\
-|$compile\
-"
-	
-	abbres="$abbres\
-"
-}
+. $sbs/primitives
 
 # Initialization
 
 settings="$base"
-macros="$escape_with_refresh\
-|$repeat_with_refresh\
-"
+macros="$exit_with_save"
 abbres="$my_name"
 
 # If view instead of edit
@@ -247,37 +55,41 @@ $readonly\
 	macros="$macros\
 |$exit_without_save\
 "
-else
-	macros="$macros\
-|$exit_with_save\
-"
 fi
 
 # Analyze filename 
 
 case $1 in
 *.c | *.h ) 
+	. $sbs/c
 	use_c_mode
 	;;
 *.sh | .shrc | .profile ) 
+	. $sbs/shell
 	use_shell_mode
 	;;
 [mM]akefile )
+	. $sbs/make
 	use_make_mode
 	;;
 *.pp | *.pas | *.p )
+	. $sbs/pascal
 	use_pascal_mode
 	;;
 *.lisp ) 
+	. $sbs/lisp
 	use_lisp_mode
 	;;
 *.md )
+	. $sbs/markdown
 	use_markdown_mode
 	;;
 *.[1-9] )
+	. $sbs/manpage
 	use_manpage_mode
 	;;
 *.asm )
+	. $sbs/asm
 	use_asm_mode
 	;;
 esac
@@ -289,6 +101,7 @@ test -e $1  && first_line=$(head -n 1 $1)
 
 case "$first_line" in
 \#\!/*bin/*sh* )
+	[ -z $lisp_mode ] && . $sbs/shell
 	use_shell_mode
 	;;
 esac
@@ -305,4 +118,3 @@ if [ $debug = 'YES' ]; then
 else
 	env EXINIT="se $settings|$macros|$abbres|$EXINIT" vi "$@"
 fi
-

@@ -1,0 +1,20 @@
+shell_mode=NO
+use_shell_mode() {
+	if [ $shell_mode = YES ]; then
+		return 0
+	fi
+	shell_mode=YES
+
+	settings="$settings \
+$struct_prog\
+"
+
+	macros="$macros\
+|$new_block_brace\
+|$comment_dq_to_sharp\
+"
+
+	abbres="$abbres\
+|$use_posix_shell\
+"
+}
