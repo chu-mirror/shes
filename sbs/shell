@@ -1,3 +1,6 @@
+#Abbreviation
+in_posix_shell='ab ish #/bin/sh'
+
 shell_mode=NO
 use_shell_mode() {
 	if [ $shell_mode = YES ]; then
@@ -15,6 +18,6 @@ $struct_prog\
 "
 
 	abbres="$abbres\
-|$use_posix_shell\
+|$in_posix_shell\
 "
 }

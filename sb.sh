@@ -27,20 +27,6 @@
 # maybe a common use of vi/ex. But I enjoy it, and want to share with
 # everyone my enjoyment.
 
-# search SHES_SOURCE_PATH for configuration files
-
-if [ -z $SHES_SOURCE_PATH -o ! -d $SHES_SOURCE_PATH ]; then
-	echo "The SHES_SOURCE_PATH is either not specified or not meaning a \
-directory"
-	exit 1
-fi
-
-sbs=$SHES_SOURCE_PATH/sbs
-
-[ ! -d $sbs ] && echo "No directory $sbs" && exit 1
-
-. $sbs/primitives
-
 # Initialization
 
 settings="$base"
@@ -60,36 +46,34 @@ fi
 # Analyze filename 
 
 case $1 in
+*.w )
+	use_web_mode
+	;;
+*.tex )
+	use_tex_mode
+	;;
 *.c | *.h ) 
-	. $sbs/c
 	use_c_mode
 	;;
 *.sh | .shrc | .profile ) 
-	. $sbs/shell
 	use_shell_mode
 	;;
 [mM]akefile )
-	. $sbs/make
 	use_make_mode
 	;;
 *.pp | *.pas | *.p )
-	. $sbs/pascal
 	use_pascal_mode
 	;;
 *.lisp ) 
-	. $sbs/lisp
 	use_lisp_mode
 	;;
 *.md )
-	. $sbs/markdown
 	use_markdown_mode
 	;;
 *.[1-9] )
-	. $sbs/manpage
 	use_manpage_mode
 	;;
 *.asm )
-	. $sbs/asm
 	use_asm_mode
 	;;
 esac
@@ -101,7 +85,6 @@ test -e $1  && first_line=$(head -n 1 $1)
 
 case "$first_line" in
 \#\!/*bin/*sh* )
-	[ -z $lisp_mode ] && . $sbs/shell
 	use_shell_mode
 	;;
 esac

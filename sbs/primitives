@@ -1,7 +1,7 @@
 ## SETTINGS
 
 # Ignorecase and autowrite 
-base='redraw ic aw exrc'
+base='redraw ic aw exrc noremap'
 
 # Readonly
 readonly="readonly"
@@ -35,7 +35,4 @@ compile='map #5 :!make'
 
 ## ABBREVIATIONS
 my_name='ab mzz Maeda Chu'
-use_posix_shell='ab ush #!/bin/sh'
-include_stdio='ab iio #include <stdio.h>'
-include_linux='ab ili #include <linux/'
 

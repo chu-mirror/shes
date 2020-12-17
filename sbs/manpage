@@ -1,4 +1,9 @@
+# Macro
+insert_date="map! #1 :r! date +'\%d \%B \%y'kJA"
+show_formatted='map #5 :w:!less %'
+
 manpage_mode=NO
+
 use_manpage_mode() {
 	if [ $manpage_mode = YES ]; then
 		return 0
@@ -9,6 +14,8 @@ use_manpage_mode() {
 "
 
 	macros="$macros\
+|$show_formatted\
+|$insert_date\
 "
 
 	abbres="$abbres\
