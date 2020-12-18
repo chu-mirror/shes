@@ -2,7 +2,7 @@
 
 dest=/mnt/tmp/temp
 
-[ -d $test ] || exit 1
+[ -d $dest ] || exit 1
 
 for f in $@; do
 	[ -d $f ] && tar -cf $f.tar $f &&\
