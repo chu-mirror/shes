@@ -1,42 +1,0 @@
-#Macro
-make_this_file='map #5 :!make $(basename % .c).o'
-
-create_definition='map  :.co$f af;xa'
-
-#Abbreviation
-include='ab inc #include'
-include_stdio='ab iio #include <stdio.h>'
-include_stdlib='ab ili #include <stdlib.h>'
-include_unistd='ab iuni #include <unistd.h>'
-include_string='ab isr #include <string.h>'
-include_sys='ab isys #inlcude <sys'
-
-main='ab mian intmain(int argc, char *argv[])'
-
-c_mode=NO
-use_c_mode() {
-	if [ $c_mode = YES ]; then
-		return 0
-	fi
-	c_mode=YES
-
-	settings="$settings \
-$struct_prog\
-"
-
-	macros="$macros\
-|$make_this_file\
-|$create_definition\
-|$new_block_brace\
-"
-
-	abbres="$abbres\
-|$include\
-|$include_stdio\
-|$include_stdlib\
-|$include_unistd\
-|$include_string\
-|$include_sys\
-|$main\
-"
-}
