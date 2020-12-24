@@ -5,12 +5,6 @@ Some variables are hardcoded,
 and should be set up
 directly in source code.
 
-sb: 
-1. traditional ex/vi 
-
-ssb: 
-1. the source code's location is hardcoded
-
 ref:
 1. the pdfs' location is hardcoded
 2. mupdf-gl 
