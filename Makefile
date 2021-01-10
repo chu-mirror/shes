@@ -2,7 +2,7 @@
 PREFIX = /usr/local
 BINDIR = $(PREFIX)/bin
 
-ALL = ref dowork gotemp push
+ALL = ref dowork gotemp prevw push 
 
 .POSIX:
 .SUFFIXES:
