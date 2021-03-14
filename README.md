@@ -21,6 +21,6 @@ gotemp:
 ```
 ## uninstall 
 ```
-# make uninstall
+# make clobber
 ```
 

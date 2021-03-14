@@ -2,7 +2,7 @@
 PREFIX = /usr/local
 BINDIR = $(PREFIX)/bin
 
-ALL = ref dowork gotemp prevw push 
+ALL = ref dowork gotemp prevw pushg 
 
 .POSIX:
 .SUFFIXES:
@@ -21,6 +21,6 @@ install: all
 clean:
 	rm -f $(ALL)
 
-uninstall:
+clobber:
 	cd $(BINDIR) && rm -f $(ALL)
 
