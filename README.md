@@ -1,5 +1,5 @@
 ## shes
-Some shell scripts for my own convenience, mostly posix compatible.
+Some shell scripts for my own convenience, posix compatible.
 ## prerequisite
 Some variables are hardcoded,
 and should be set up
@@ -11,6 +11,7 @@ ref:
 
 dowork:
 1. the workspace's location is hardcoded
+2. sb(see my other repositories)
 
 gotemp:
 1. the temp's location is hardcoded
